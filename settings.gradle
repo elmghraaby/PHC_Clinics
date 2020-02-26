@@ -1,0 +1,6 @@
+/*
+ * Copyright (c) 2020, Created By Ahmed Alaa Elmaghraby.
+ */
+
+include ':app'
+rootProject.name='PHC Clinics'
