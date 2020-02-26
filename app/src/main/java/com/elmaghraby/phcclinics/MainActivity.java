@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        webView = (WebView) findViewById(R.id.webView);
+
+        webView = findViewById(R.id.webView);
         webView.setWebViewClient(new myWebClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAppCacheEnabled(true);
@@ -46,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
                 webView.loadUrl("about:blank");
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                alertDialog.setTitle("Error");
-                alertDialog.setMessage("Check your internet connection and try again.");
-                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Try Again", new DialogInterface.OnClickListener() {
+                alertDialog.setIcon(R.drawable.emoji);
+                alertDialog.setTitle("OOPS!!");
+                alertDialog.setMessage("Check your internet connection and try again.\n تحقق من اتصالك بالإنترنت وحاول مرة أخرى.");
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Try Again | حاول مره اخرى", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                         startActivity(getIntent());
@@ -72,10 +74,29 @@ public class MainActivity extends AppCompatActivity {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
             view.loadUrl(url);
-            return true;
+            return super.shouldOverrideUrlLoading(view, url);
 
         }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+
+            view.getSettings().setJavaScriptEnabled(true);
+
+            super.onPageFinished(view, url);
+        }
+
+
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+    }
+
 
     @Override
     // This method is used to detect back button
@@ -87,4 +108,5 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
 }
